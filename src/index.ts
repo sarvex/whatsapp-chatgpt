@@ -52,7 +52,8 @@ async function handleIncomingMessage(message: Message) {
 async function handleIncomingVoiceMessage(message: Message) {
 	const media = await message.downloadMedia();
 
-	message.reply("Processing voice message...");
+	// Check mimeType for audio message
+	if (!media.mimetype.startsWith("audio/")) return;
 
 	// Media base64 data to buffer
 	const buffer = Buffer.from(media.data, "base64");
